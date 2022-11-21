@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Objects.requireNonNull(getSupportActionBar()).hide();//hide the title bar
-        mMyView=new My3DGraphView(this);
+        mMyView = new My3DGraphView(this);
         setContentView(mMyView);
     }
 }
