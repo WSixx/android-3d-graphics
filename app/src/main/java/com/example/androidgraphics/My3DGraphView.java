@@ -20,6 +20,10 @@ public class My3DGraphView extends View {
     private final Paint greenPaint; //paint object for drawing the lines
     private final Coordinate[] cube_vertices;//the vertices of a 3D cube
     private Coordinate[] drawHeadVertices, drawBodyVertices;
+    private Coordinate[] drawLeftArmVertices, drawRightArmVertices;
+    private Coordinate[] drawLeftLegVertices, drawRightLegVertices;
+    private Coordinate[] drawLeftHandVertices, drawRightHandVertices;
+    private Coordinate[] drawLeftFeetVertices, drawRightFeetVertices;
 
     public My3DGraphView(Context context) {
         super(context, null);
@@ -57,9 +61,16 @@ public class My3DGraphView extends View {
 
         //Head Of the Robot
         drawRobotHead();
-
         //Body Of the Robot
         drawRobotBody();
+        //Arms Of the Robot
+        drawArms();
+        //Hands Of the Robot
+        drawHands();
+        //Legs Of the Robot
+        drawLegs();
+        //Foots Of the Robot
+        drawFoots();
 
 
         thisview.invalidate();//update the view
@@ -75,7 +86,68 @@ public class My3DGraphView extends View {
         drawBodyVertices = translate(cube_vertices,3.5,2.7,5);
         drawBodyVertices = scale(drawBodyVertices,160,200,80);
     }
+
+    private void drawArms() {
+        //left Arm
+        drawLeftArmVertices = translate(cube_vertices,5.6,3.0,5);
+        drawLeftArmVertices = scale(drawLeftArmVertices,60,170,80);
+
+        //Right Arm
+        drawRightArmVertices = translate(cube_vertices,13.0,3.0,5);
+        drawRightArmVertices = scale(drawRightArmVertices,60,170,80);
+    }
+
+    private void drawHands() {
+        //left Arm
+        drawLeftHandVertices = translate(cube_vertices,5.6,14.5,5);
+        drawLeftHandVertices = scale(drawLeftHandVertices,60,50,80);
+
+        //Right Arm
+        drawRightHandVertices = translate(cube_vertices,13.0,14.5,5);
+        drawRightHandVertices = scale(drawRightHandVertices,60,50,80);
+    }
+
+    private void drawLegs() {
+        //left Arm
+        drawLeftLegVertices = translate(cube_vertices,7.6,5.2,5);
+        drawLeftLegVertices = scale(drawLeftLegVertices,60,180,80);
+
+        //Right Arm
+        drawRightLegVertices = translate(cube_vertices,11.0,5.2,5);
+        drawRightLegVertices = scale(drawRightLegVertices,60,180,80);
+    }
+
+    private void drawFoots() {
+        //left Arm
+        drawLeftFeetVertices = translate(cube_vertices,7.6,23.3,5);
+        drawLeftFeetVertices = scale(drawLeftFeetVertices,60,50,80);
+
+        //Right Arm
+        drawRightFeetVertices = translate(cube_vertices,11.0,23.3,5);
+        drawRightFeetVertices = scale(drawRightFeetVertices,60,50,80);
+    }
     //endregion
+
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        //draw objects on the screen
+        super.onDraw(canvas);
+        DrawCube(canvas, drawHeadVertices, redPaint);
+        DrawCube(canvas, drawBodyVertices, greenPaint);
+
+        DrawCube(canvas, drawLeftArmVertices, redPaint);
+        DrawCube(canvas, drawRightArmVertices, bluePaint);
+
+        DrawCube(canvas, drawLeftHandVertices, bluePaint);
+        DrawCube(canvas, drawRightHandVertices, redPaint);
+
+        DrawCube(canvas, drawLeftLegVertices, redPaint);
+        DrawCube(canvas, drawRightLegVertices, bluePaint);
+
+        DrawCube(canvas, drawLeftFeetVertices, bluePaint);
+        DrawCube(canvas, drawRightFeetVertices, redPaint);
+    }
 
     private  void DrawLinePairs(Canvas canvas, Coordinate[] vertices, int start, int end, Paint paint)
     {//draw a line connecting 2 points
@@ -103,13 +175,6 @@ public class My3DGraphView extends View {
         DrawLinePairs(canvas, drawCubeVertices, 3, 7, paint);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        //draw objects on the screen
-        super.onDraw(canvas);
-        DrawCube(canvas, drawHeadVertices, redPaint);//draw the a Head cube onto the screen
-        DrawCube(canvas, drawBodyVertices, greenPaint);//draw the a Head cube onto the screen
-    }
     //*********************************
     //matrix and transformation functions
     public double []GetIdentityMatrix()
